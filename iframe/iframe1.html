@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>window1</title>
+    <style>
+      .input {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 16px;
+      }
+      .input span {
+        width: 160px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>iframe1</h1>
+
+    <div class="input">
+      <span>dialogArguments: </span>
+      <input id="dialogArgs" type="text" value="from iframe1" />
+      <button onclick="showDialog();">showModalDialog</button>
+    </div>
+
+    <div class="input">
+      <span>returnValue: </span>
+      <textarea id="returns" rows="8" cols="30"></textarea>
+    </div>
+
+    <script src="../modal-dialog.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        if (window.ModalDialog) {
+          ModalDialog.defaults.overlay.backgroundColor = "rgba(0,0,0,0.5)";
+          ModalDialog.defaults.dialog.border = "none";
+          ModalDialog.defaults.dialog.boxShadow = "none";
+          ModalDialog.defaults.titleBar.backgroundColor = "blue";
+          ModalDialog.defaults.titleText.color = "white";
+          ModalDialog.defaults.closeButton.color = "white";
+        }
+      });
+
+      function showDialog() {
+        var dialogArgs = document.querySelector("#dialogArgs").value;
+        var opts = "center:no;dialogwidth:700px;";
+
+        if (window.ModalDialog) {
+          showModalDialog("dialog/dialog1.html", dialogArgs, opts).then(function (returns) {
+            showReturns(returns);
+          });
+        } else {
+          var returns = showModalDialog("../dialog/dialog1.html", dialogArgs, opts);
+          showReturns(returns);
+        }
+      }
+
+      function showReturns(returns) {
+        console.log("returns:", returns);
+        document.querySelector("#returns").value = JSON.stringify(returns, "", "  ");
+      }
+    </script>
+  </body>
+</html>
