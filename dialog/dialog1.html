@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <base target="_self" />
+    <title>dialog1</title>
+  </head>
+  <body>
+    <h1>dialog1</h1>
+
+    <div>
+      <div>
+        <span>dialogArguments: </span>
+        <input id="dialogArgs1" type="text" width="50" />
+      </div>
+      <div>
+        <span>returnValue: </span>
+        <button onclick="returnString();">returnString</button>
+        <button onclick="returnArray();">returnArray</button>
+        <button onclick="returnObject();">returnObject</button>
+      </div>
+    </div>
+
+    <hr />
+
+    <div>
+      Go to next page
+      <form action="dialog2.html">
+        <input type="submit" value="to dialog2" />
+      </form>
+    </div>
+
+    <hr />
+
+    <div>
+      Open dialog on dialog
+      <div class="input">
+        <span>dialogArguments: </span>
+        <input id="dialogArgs2" type="text" value="from dialog1" />
+        <br />
+        <button onclick="showDialog();">showModalDialog</button>
+      </div>
+      <div class="input">
+        <span>returnValue: </span>
+        <br />
+        <textarea id="returns" rows="8" cols="30"></textarea>
+      </div>
+    </div>
+
+    <script src="../modal-dialog.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.querySelector("#dialogArgs1").value = window.dialogArguments;
+
+        if (window.ModalDialog) {
+          ModalDialog.defaults.overlay.scrollLockClass = "scroll-lock-dialog-" + Date.now();
+        }
+      });
+
+      function returnString() {
+        var element = document.querySelector("#returnValue");
+        window.returnValue = "return dialog1 string";
+        window.close();
+      }
+
+      function returnArray() {
+        var element = document.querySelector("#returnValue");
+        window.returnValue = ["return", "dialog1", "array"];
+        window.close();
+      }
+
+      function returnObject() {
+        var element = document.querySelector("#returnValue");
+        window.returnValue = { v1: "return", v2: "dialog1", v3: "object" };
+        window.close();
+      }
+
+      function showDialog() {
+        var dialogArgs = document.querySelector("#dialogArgs2").value;
+        var opts = "center:no";
+
+        if (window.ModalDialog) {
+          showModalDialog("dialog/dialog1.html", dialogArgs, opts).then(function (returns) {
+            showReturns(returns);
+          });
+        } else {
+          var returns = showModalDialog("dialog1.html", dialogArgs, opts);
+          showReturns(returns);
+        }
+      }
+
+      function showReturns(returns) {
+        console.log("returns:", returns);
+        document.querySelector("#returns").value = JSON.stringify(returns, "", "  ");
+      }
+    </script>
+  </body>
+</html>
