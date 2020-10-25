@@ -1,7 +1,10 @@
 (function () {
   "use strict";
 
-  if (!window.showModalDialog) {
+  var userAgent = window.navigator.userAgent.toLowerCase();
+  var ie = userAgent.match("msie") || userAgent.match("trident");
+
+  if (!ie) {
     var ModalDialog = function () {};
 
     ModalDialog.prototype.defaults = Object.seal({
@@ -16,7 +19,8 @@
       },
       titleBar: {
         backgroundColor: "#FFF",
-        height: "30px"
+        height: "30px",
+        fontFamily: "sans-serif"
       },
       titleText: {
         color: "#000",
@@ -48,7 +52,7 @@
       },
       options: {
         scrollLockClass: "scroll-lock",
-        padding: "4"
+        overlayPadding: ""
       }
     });
 
@@ -60,6 +64,7 @@
     ModalDialog.prototype.showModalDialog = function (url, args, opts) {
       var defaults = ModalDialog.prototype.defaults;
       var parsedOpts = parseShowDialogOpts(opts);
+      var scrollLockClass = defaults.options.scrollLockClass + "-" + Date.now();
 
       return new Promise(function (resolve) {
         var overlay = createOverlayElement();
@@ -73,8 +78,8 @@
 
         var style = document.createElement("style");
         window.top.document.head.appendChild(style);
-        style.sheet.insertRule(`.${defaults.options.scrollLockClass} {overflow:hidden;}`, 0);
-        window.top.document.body.classList.add(defaults.options.scrollLockClass);
+        style.sheet.insertRule(`.${scrollLockClass} {overflow:hidden;}`, 0);
+        window.top.document.body.classList.add(scrollLockClass);
 
         window.top.document.body.appendChild(overlay);
         iframe.contentWindow.dialogArguments = args;
@@ -95,7 +100,7 @@
           iframe.contentWindow.close = function () {
             resolve(iframe.contentWindow.returnValue);
             window.top.document.body.removeChild(overlay);
-            window.top.document.body.classList.remove(defaults.overlay.scrollLockClass);
+            window.top.document.body.classList.remove(scrollLockClass);
             window.top.document.head.removeChild(style);
           };
         };
@@ -154,7 +159,7 @@
       }
 
       var drag = null;
-      var padding = Number.parseInt(defaults.options.padding);
+      var overlayPadding = Number.parseInt(defaults.options.overlayPadding);
 
       dialog.onmousedown = function (evt) {
         evt.stopPropagation();
@@ -185,12 +190,12 @@
         var x = evt.pageX - drag.startX - scrollLeft;
         var y = evt.pageY - drag.startY - scrollTop;
 
-        if (padding) {
+        if (overlayPadding) {
           if (
-            x < padding ||
-            y < padding ||
-            dialog.parentElement.clientWidth <= x + dialog.clientWidth + padding ||
-            dialog.parentElement.clientHeight <= y + dialog.clientHeight + padding
+            x < overlayPadding ||
+            y < overlayPadding ||
+            dialog.parentElement.clientWidth <= x + dialog.clientWidth + overlayPadding ||
+            dialog.parentElement.clientHeight <= y + dialog.clientHeight + overlayPadding
           ) {
             return;
           }
@@ -211,12 +216,14 @@
       var titleBar = document.createElement("div");
       titleBar.style.backgroundColor = defaults.titleBar.backgroundColor;
       titleBar.style.height = defaults.titleBar.height;
+      titleBar.style.fontFamily = defaults.titleBar.fontFamily;
 
       titleBar.style.margin = "0";
       titleBar.style.padding = "0";
 
       titleBar.style.userSelect = "none";
       titleBar.style.msUserSelect = "none";
+      titleBar.style.webkitUserSelect = "none";
       titleBar.style.cursor = "default";
 
       titleBar.style.display = "flex";
