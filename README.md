@@ -2,6 +2,12 @@
 
 JavaScript library like window.showModalDialog()
 
+samples.
+
+- [sample 1](https://dogfoodlab.github.io/modal-dialog-js/sample1.html)
+- [sample 2](https://dogfoodlab.github.io/modal-dialog-js/sample2.html)
+- [sample 3](https://dogfoodlab.github.io/modal-dialog-js/sample3.html)
+
 ## Setup
 
 ```
