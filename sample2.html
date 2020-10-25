@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>sample 2</title>
+  </head>
+  <body>
+    <h1>sample 2</h1>
+
+    <h2>Customize dialog</h2>
+
+    <p>window.ModalDialog class is defined so that you can use it to change the dialog display settings.</p>
+
+    <h3>example</h3>
+
+    <pre>
+      ModalDialog.defaults.overlay.backgroundColor = "rgba(0,0,0,0.5)";
+      ModalDialog.defaults.dialog.border = "solid 1px black";
+      ModalDialog.defaults.dialog.boxShadow = "none";
+      ModalDialog.defaults.titleBar.backgroundColor = "blue";
+      ModalDialog.defaults.titleText.color = "white";
+      ModalDialog.defaults.closeButton.color = "white";
+      ModalDialog.defaults.options.overlayPadding = "4";
+    </pre>
+
+    <div>
+      <button onclick="showDialog()">open dialog</button>
+    </div>
+
+    <script src="modal-dialog.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        if (window.ModalDialog) {
+          ModalDialog.defaults.overlay.backgroundColor = "rgba(0,0,0,0.5)";
+          ModalDialog.defaults.dialog.border = "solid 1px black";
+          ModalDialog.defaults.dialog.boxShadow = "none";
+          ModalDialog.defaults.titleBar.backgroundColor = "blue";
+          ModalDialog.defaults.titleText.color = "white";
+          ModalDialog.defaults.closeButton.color = "white";
+          ModalDialog.defaults.options.overlayPadding = "4";
+        }
+      });
+
+      function showDialog() {
+        showModalDialog("dialog/dialog2.html");
+      }
+    </script>
+  </body>
+</html>

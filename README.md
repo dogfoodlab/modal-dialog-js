@@ -1,4 +1,6 @@
-# Library like showModalDialog
+# modal-dialog.js
+
+JavaScript library like window.showModalDialog()
 
 ## Setup
 

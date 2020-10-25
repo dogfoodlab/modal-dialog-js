@@ -2,45 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>dialog2</title>
+    <title>dialog 2</title>
   </head>
   <body>
-    <h1>dialog2</h1>
-
-    <div>
-      <span>dialogArguments: </span>
-      <input id="dialogArgs" type="text" width="50" />
-    </div>
-
-    <div>
-      <span>returnValue: </span>
-      <button onclick="returnString();">returnString</button>
-      <button onclick="returnArray();">returnArray</button>
-      <button onclick="returnObject();">returnObject</button>
-    </div>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        document.querySelector("#dialogArgs").value = window.dialogArguments;
-      });
-
-      function returnString() {
-        var element = document.querySelector("#returnValue");
-        window.returnValue = "return dialog2 string";
-        window.close();
-      }
-
-      function returnArray() {
-        var element = document.querySelector("#returnValue");
-        window.returnValue = ["return", "dialog2", "array"];
-        window.close();
-      }
-
-      function returnObject() {
-        var element = document.querySelector("#returnValue");
-        window.returnValue = { v1: "return", v2: "dialog2", v3: "object" };
-        window.close();
-      }
-    </script>
+    <h2>dialog 2</h2>
   </body>
 </html>

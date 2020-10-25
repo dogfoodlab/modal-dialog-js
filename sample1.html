@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>sample 1</title>
+  </head>
+  <body>
+    <h1>sample 1</h1>
+
+    <h3>arguments to send to dialog</h3>
+    <div>
+      <input id="sendDialogArgs" type="text" size="30" value="argument from sample 1" />
+    </div>
+
+    <h3>return value from dialog</h3>
+    <div>
+      <textarea id="returns" rows="6" cols="30"></textarea>
+    </div>
+
+    <h2>Simple dialog</h2>
+    <div>
+      <button onclick="showDialog('')">open dialog</button>
+    </div>
+
+    <h2>Sized dialog</h2>
+    <div>
+      <button onclick="showDialog('dialogwidth:600px;dialogheight:300px;')">
+        open dialog 'dialogwidth:600px;dialogheight:300px;'
+      </button>
+    </div>
+    <div>
+      <button onclick="showDialog('dialogwidth:300px;dialogheight:600px;')">
+        open dialog 'dialogwidth:300px;dialogheight:600px;'
+      </button>
+    </div>
+
+    <h2>Positioned dialog</h2>
+    <div>
+      <button onclick="showDialog('dialogleft:300px;dialogtop:100px;')">
+        open dialog 'dialogleft:300px;dialogtop:100px;'
+      </button>
+    </div>
+    <div>
+      <button onclick="showDialog('dialogleft:100px;dialogtop:300px;')">
+        open dialog 'dialogleft:100px;dialogtop:300px;'
+      </button>
+    </div>
+    <div>
+      <button onclick="showDialog('center:no;')">open dialog 'center:no;'</button>
+    </div>
+
+    <script src="modal-dialog.js"></script>
+    <script>
+      function showDialog(dialogOpts) {
+        var dialogArgs = document.querySelector("#sendDialogArgs").value;
+
+        if (window.ModalDialog) {
+          showModalDialog("dialog/dialog1.html", dialogArgs, dialogOpts).then(function (returns) {
+            setReturnValue(returns);
+          });
+        } else {
+          var returns = showModalDialog("dialog/dialog1.html", dialogArgs, dialogOpts);
+          setReturnValue(returns);
+        }
+      }
+
+      function setReturnValue(returns) {
+        document.querySelector("#returns").value = JSON.stringify(returns, null, "  ");
+      }
+    </script>
+  </body>
+</html>

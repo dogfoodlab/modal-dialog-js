@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>window1</title>
+    <title>index</title>
     <style>
       .input {
         display: flex;
@@ -15,11 +15,11 @@
     </style>
   </head>
   <body>
-    <h1>iframe1</h1>
+    <h1>index</h1>
 
     <div class="input">
       <span>dialogArguments: </span>
-      <input id="dialogArgs" type="text" value="from iframe1" />
+      <input id="dialogArgs" type="text" value="from index" />
       <button onclick="showDialog();">showModalDialog</button>
     </div>
 
@@ -28,29 +28,20 @@
       <textarea id="returns" rows="8" cols="30"></textarea>
     </div>
 
+    <iframe src="iframe/iframe1.html" width="600" height="300"></iframe>
+    <iframe src="iframe/iframe2.html" width="600" height="300"></iframe>
+
     <script src="../modal-dialog.js"></script>
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        if (window.ModalDialog) {
-          ModalDialog.defaults.overlay.backgroundColor = "rgba(0,0,0,0.5)";
-          ModalDialog.defaults.dialog.border = "none";
-          ModalDialog.defaults.dialog.boxShadow = "none";
-          ModalDialog.defaults.titleBar.backgroundColor = "blue";
-          ModalDialog.defaults.titleText.color = "white";
-          ModalDialog.defaults.closeButton.color = "white";
-        }
-      });
-
       function showDialog() {
         var dialogArgs = document.querySelector("#dialogArgs").value;
-        var opts = "center:no;dialogwidth:700px;";
 
         if (window.ModalDialog) {
-          showModalDialog("dialog/dialog1.html", dialogArgs, opts).then(function (returns) {
+          showModalDialog("dialog/dialog1.html", dialogArgs).then(function (returns) {
             showReturns(returns);
           });
         } else {
-          var returns = showModalDialog("../dialog/dialog1.html", dialogArgs, opts);
+          var returns = showModalDialog("dialog/dialog1.html", dialogArgs);
           showReturns(returns);
         }
       }
