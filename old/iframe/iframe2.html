@@ -28,7 +28,7 @@
       <textarea id="returns" rows="8" cols="30"></textarea>
     </div>
 
-    <script src="../modal-dialog.js"></script>
+    <script src="../../modal-dialog.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         if (window.ModalDialog) {
@@ -38,14 +38,14 @@
 
       function showDialog() {
         var dialogArgs = document.querySelector("#dialogArgs").value;
-        var opts = "center:no;dialogleft:200px;dialogtop:10px;dialogwidth:300px;dialogheight:450px";
+        var dialogOpts = "center:no;dialogleft:200px;dialogtop:10px;dialogwidth:300px;dialogheight:450px";
 
         if (window.ModalDialog) {
-          showModalDialog("dialog/dialog1.html", dialogArgs, opts).then(function (returns) {
+          showModalDialog("dialog/dialog1.html", dialogArgs, dialogOpts).then(function (returns) {
             showReturns(returns);
           });
         } else {
-          var returns = showModalDialog("../dialog/dialog1.html", dialogArgs, opts);
+          var returns = showModalDialog("../dialog/dialog1.html", dialogArgs, dialogOpts);
           showReturns(returns);
         }
       }

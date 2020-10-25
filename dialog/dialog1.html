@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>dialog 1</title>
+  </head>
+  <body>
+    <h2>dialog 1</h2>
+
+    <h3>arguments from caller</h3>
+    <div>
+      <input id="recvDialogArgs" type="text" size="30" />
+    </div>
+
+    <h3>return value to caller</h3>
+    <div>
+      <button onclick="returnString();">return string</button>
+      <button onclick="returnArray();">return array</button>
+      <button onclick="returnObject();">return object</button>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.querySelector("#recvDialogArgs").value = window.dialogArguments;
+      });
+
+      function returnString() {
+        window.returnValue = "return dialog1 string";
+        window.close();
+      }
+
+      function returnArray() {
+        window.returnValue = ["return", "dialog1", "array"];
+        window.close();
+      }
+
+      function returnObject() {
+        window.returnValue = { v1: "return", v2: "dialog1", v3: "object" };
+        window.close();
+      }
+    </script>
+  </body>
+</html>

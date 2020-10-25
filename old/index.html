@@ -31,18 +31,8 @@
     <iframe src="iframe/iframe1.html" width="600" height="300"></iframe>
     <iframe src="iframe/iframe2.html" width="600" height="300"></iframe>
 
-    <script src="modal-dialog.js"></script>
+    <script src="../modal-dialog.js"></script>
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        if (window.ModalDialog) {
-          //ModalDialog.defaults.overlay.backgroundColor = "rgba(0,0,0,0.5)";
-          //ModalDialog.defaults.options.center = "0";
-          //ModalDialog.defaults.options.dialogLeft = "200px";
-          //ModalDialog.defaults.options.dialogTop = "200px";
-        }
-      });
-
-      //var opts = "center:yes;dialogheight:400;dialogleft:222;dialogtop:333;dialogwidth:250;resizable:yes;scroll:yes;";
       function showDialog() {
         var dialogArgs = document.querySelector("#dialogArgs").value;
 

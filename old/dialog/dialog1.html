@@ -47,14 +47,10 @@
       </div>
     </div>
 
-    <script src="../modal-dialog.js"></script>
+    <script src="../../modal-dialog.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         document.querySelector("#dialogArgs1").value = window.dialogArguments;
-
-        if (window.ModalDialog) {
-          ModalDialog.defaults.overlay.scrollLockClass = "scroll-lock-dialog-" + Date.now();
-        }
       });
 
       function returnString() {
@@ -77,14 +73,14 @@
 
       function showDialog() {
         var dialogArgs = document.querySelector("#dialogArgs2").value;
-        var opts = "center:no";
+        var dialogOpts = "center:no";
 
         if (window.ModalDialog) {
-          showModalDialog("dialog/dialog1.html", dialogArgs, opts).then(function (returns) {
+          showModalDialog("dialog/dialog1.html", dialogArgs, dialogOpts).then(function (returns) {
             showReturns(returns);
           });
         } else {
-          var returns = showModalDialog("dialog1.html", dialogArgs, opts);
+          var returns = showModalDialog("dialog1.html", dialogArgs, dialogOpts);
           showReturns(returns);
         }
       }
