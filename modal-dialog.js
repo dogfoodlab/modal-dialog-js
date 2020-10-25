@@ -128,6 +128,16 @@
       overlay.style.justifyContent = "center";
       overlay.style.alignItems = "center";
 
+      overlay.onclick = function (evt) {
+        evt.stopPropagation();
+      };
+      overlay.onmousedown = function (evt) {
+        evt.stopPropagation();
+      };
+      overlay.onmouseup = function (evt) {
+        evt.stopPropagation();
+      };
+
       //
       return overlay;
     };
