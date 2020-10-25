@@ -7,8 +7,7 @@
     ModalDialog.prototype.defaults = Object.seal({
       overlay: {
         backgroundColor: "transparent",
-        zIndex: "1000",
-        scrollLockClass: "scroll-lock"
+        zIndex: "1000"
       },
       dialog: {
         backgroundColor: "#FFF",
@@ -46,6 +45,10 @@
         scroll: "1",
         defaultLeft: "50px",
         defaultTop: "50px"
+      },
+      options: {
+        scrollLockClass: "scroll-lock",
+        padding: "4"
       }
     });
 
@@ -70,8 +73,8 @@
 
         var style = document.createElement("style");
         window.top.document.head.appendChild(style);
-        style.sheet.insertRule(`.${defaults.overlay.scrollLockClass} {overflow:hidden;}`, 0);
-        window.top.document.body.classList.add(defaults.overlay.scrollLockClass);
+        style.sheet.insertRule(`.${defaults.options.scrollLockClass} {overflow:hidden;}`, 0);
+        window.top.document.body.classList.add(defaults.options.scrollLockClass);
 
         window.top.document.body.appendChild(overlay);
         iframe.contentWindow.dialogArguments = args;
@@ -151,6 +154,7 @@
       }
 
       var drag = null;
+      var padding = Number.parseInt(defaults.options.padding);
 
       dialog.onmousedown = function (evt) {
         evt.stopPropagation();
@@ -171,15 +175,17 @@
           dialog.parentElement.removeEventListener("mousemove", onMouseMove);
         }
 
-        var padding = 4;
+        if (!drag) {
+          return;
+        }
 
-        if (drag) {
-          var scrollLeft = window.top.document.body.scrollLeft || window.top.document.documentElement.scrollLeft;
-          var scrollTop = window.top.document.body.scrollTop || window.top.document.documentElement.scrollTop;
+        var scrollLeft = window.top.document.body.scrollLeft || window.top.document.documentElement.scrollLeft;
+        var scrollTop = window.top.document.body.scrollTop || window.top.document.documentElement.scrollTop;
 
-          var x = evt.pageX - drag.startX - scrollLeft;
-          var y = evt.pageY - drag.startY - scrollTop;
+        var x = evt.pageX - drag.startX - scrollLeft;
+        var y = evt.pageY - drag.startY - scrollTop;
 
+        if (padding) {
           if (
             x < padding ||
             y < padding ||
@@ -188,10 +194,10 @@
           ) {
             return;
           }
-
-          dialog.style.left = x + "px";
-          dialog.style.top = y + "px";
         }
+
+        dialog.style.left = x + "px";
+        dialog.style.top = y + "px";
       };
 
       //
